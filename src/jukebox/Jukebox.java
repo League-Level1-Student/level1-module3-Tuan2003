@@ -5,6 +5,8 @@ package jukebox;
  */
 
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -12,7 +14,10 @@ import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -20,15 +25,20 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 /*   If you don't have javazoom.jar in your project, you can download it from here: http://bit.ly/javazoom
  *   Right click your project and add it as a JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable {
+public class Jukebox implements Runnable, MouseListener {
 
+
+	JPanel panel = new JPanel();
+	JFrame frame = new JFrame();
+	JButton button1 = new JButton();
+	JButton button2 = new JButton();
+	Song song = new Song("SeeYouAgain.mp3");
+	Song song1 = new Song("RickRoll.mp3");
     public void run() {
 
 		// 1. Find an mp3 on your computer or on the Internet.
 		// 2. Create a Song object for that mp3
-
 		// 3. Play the Song
-
 		/*
 		 * 4. Create a user interface for your Jukebox so that the user can to
 		 * choose which song to play. You can use can use a different button for
@@ -36,6 +46,20 @@ public class Jukebox implements Runnable {
 		 * cover is clicked, stop the currently playing song, and play the one
 		 * that was selected.
 		 */
+    	
+    	JPanel panel = new JPanel();
+    	JFrame frame = new JFrame();
+    	button1.setSize(300,300);
+    	button2.setSize(300,300);
+    	panel.add(button1);
+    	panel.add(button2);
+    	panel.setSize(500,500);
+    	frame.add(panel);
+    	frame.setVisible(true);
+    	frame.pack();
+    	button1.addMouseListener(this);
+    	button2.addMouseListener(this);
+    	
     }
     
     
@@ -44,6 +68,47 @@ public class Jukebox implements Runnable {
 		URL imageURL = getClass().getResource(fileName);
 		Icon icon = new ImageIcon(imageURL);
 		return new JLabel(icon);
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == button1) {
+			System.out.println("Button 1 Clicked !");
+			song.play();
+		}else if(e.getSource() == button2) {
+			System.out.println("Button 2 Clicked !");
+			song1.play();
+		}
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
